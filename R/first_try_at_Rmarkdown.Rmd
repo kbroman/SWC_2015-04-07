@@ -1,0 +1,73 @@
+---
+title: "SWC R Markdown Test"
+author: "Karl Broman"
+date: "April 28, 2015"
+output: html_document
+---
+
+```{r, global_knitr_options, include=FALSE}
+knitr::opts_chunk$set(echo=FALSE, 
+                      fig.path="../Figs/firsttry_",
+                      fig.height=8, fig.width=11)
+```
+
+This is a test document to show you how to use R Markdown.
+
+The sun did not shine,  
+it was to wet to play,  
+so we sat in the house  
+all that cold, cold wet day.  
+
+```{r, load_library, include=FALSE}
+# I'll need these later
+library(dplyr)
+library(ggplot2)
+```
+
+```{r, load_data}
+gapminder <- read.csv("../data/gapminder.csv")
+```
+
+Here are the first five lines of the data.
+
+```{r, head_gapminder}
+head(gapminder)
+```
+
+This gapminder data has `r nrow(gapminder)` rows and `r ncol(gapminder)` columns.
+
+```{r ave_life_exp_for_china, include=FALSE}
+ale_china <- gapminder %>%
+  filter(country=="China") %>%
+  summarize(ave=mean(lifeExp))
+another_number <- 23.0353
+```
+
+I get the average life expectancy, averaged across these years (if it means anything) for China is `r round(ale_china, 1)`.
+
+```{r broman_pkg}
+library(broman)
+```
+
+Another number is `r myround(another_number, 1)`.
+
+```{r hist_life_exp, fig.height=4}
+ggplot(gapminder, aes(x=lifeExp)) + 
+  geom_histogram()
+```
+
+This next one should be taller:
+
+```{r hist_life_exp_tall}
+ggplot(gapminder, aes(x=lifeExp)) + 
+  geom_histogram()
+```
+
+
+
+
+
+
+
+
+
